@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block title 'Index' %}
+
+{% block body %}
+    {{ include(':default:_jumbotron.html.twig') }}
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ block('title') }}</h2>
+            <ul>
+                <li><a href="{{ path('app_default_index') }}">Index</a></li>
+                <li><a href="{{ path('app_default_add') }}">Add</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

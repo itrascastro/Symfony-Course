@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ block('title') }}</h1>
+    <div class="container" style="margin-top:20px;">
+        <form id="fr" method="post" action="{{ action }}">
+            <input type="number" name="op1"><br/>
+            <input type="number" name="op2"><br/>
+            <input type="submit" value="{{ button }}">
+        </form>
+    </div>
+{% endblock %}
