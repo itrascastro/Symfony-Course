@@ -1,4 +1,2 @@
-myproject
-=========
-
-A Symfony project created on March 25, 2015, 11:11 am.
+Symfony Course by Ismael Trascastro
+===================================
