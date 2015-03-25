@@ -15,8 +15,19 @@ namespace AppBundle\Service;
 
 class CalculatorService 
 {
+    /**
+     * @var int
+     */
     private $op1;
+
+    /**
+     * @var int
+     */
     private $op2;
+
+    /**
+     * @var int
+     */
     private $result;
 
     function __construct($op1 = null, $op2 = null, $result = null)
