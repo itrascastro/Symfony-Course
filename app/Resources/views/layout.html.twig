@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-    <title>{{ block('title') }} - Calculator</title>
+    <title>{% block title %}{{ block('title') }}{% endblock %} - Calculator</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
