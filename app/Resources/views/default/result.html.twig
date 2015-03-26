@@ -3,7 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <h1>{{ block('title') }}</h1>
+    {{ parent() }}
     <div>
         <span style="font-size: 120px;">{{ op1 }} + {{ op2 }} = </span><span style="font-size: 120px; color: red">{{ result }}</span>
     </div>

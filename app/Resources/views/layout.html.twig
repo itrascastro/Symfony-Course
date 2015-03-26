@@ -56,7 +56,9 @@
 </nav>
 
 <div class="container">
-    {% block body %}{% endblock %}
+    {% block body %}
+        <h1>{{ block('title') }}</h1>
+    {% endblock %}
 
     <hr>
 
