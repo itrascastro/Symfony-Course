@@ -38,16 +38,16 @@ class DefaultController extends Controller
     }
 
     /**
-     * doAdd
+     * doAddAction
      *
      * Description
      *
-     * @Route("/do-add/", name="app_default_doAdd")
-     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/do-add/", name="app_default_doAdd")
      */
-    public function doAdd(Request $request)
+    public function doAddAction(Request $request)
     {
         $calculator = $this->get('app.service.calculator');
         $op1 = $request->request->get('op1');
