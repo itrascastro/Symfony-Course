@@ -25,25 +25,14 @@
                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if entity.modifiedAt %}{{ entity.modifiedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('bookmark_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('bookmark_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <a class="btn btn-primary" href="{{ path('bookmark_show', { 'id': entity.id }) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('bookmark_edit', { 'id': entity.id }) }}">edit</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('bookmark_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+    <div>
+        <a class="btn btn-success" href="{{ path('bookmark_new') }}">{{ 'crud.button.create'|trans }}</a>
+    </div>
     {% endblock %}
