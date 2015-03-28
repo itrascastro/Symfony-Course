@@ -46,10 +46,17 @@ class Bookmark
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
-    private $date;
+    private $createdAt;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="modifiedAt", type="datetime")
+     * @ORM\Version
+     */
+    private $modifiedAt;
 
     /**
      * Get id
@@ -137,10 +144,10 @@ class Bookmark
      * @return Bookmark
      * @ORM\PrePersist
      */
-    public function setDate()
+    public function setCreatedAt($date)
     {
-        if ($this->getDate() == null) {
-            $this->date = new \DateTime(date('Y-m-d H:i:s'));;
+        if ($this->getCreatedAt() == null) {
+            $this->createdAt = new \DateTime(date('Y-m-d H:i:s'));;
         }
 
         return $this;
@@ -151,8 +158,25 @@ class Bookmark
      *
      * @return \DateTime 
      */
-    public function getDate()
+    public function getCreatedAt()
     {
-        return $this->date;
+        return $this->createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getModifiedAt()
+    {
+        return $this->modifiedAt;
+    }
+
+    /**
+     * @param \DateTime $modifiedAt
+     * @return Bookmark
+     */
+    public function setModifiedAt($date)
+    {
+        return $this;
     }
 }
