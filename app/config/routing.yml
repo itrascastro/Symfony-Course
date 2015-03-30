@@ -1,3 +1,7 @@
 app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+  resource: "@AppBundle/Controller/"
+  type:     annotation
+
+tuser:
+  resource: "@TUserBundle/Controller/"
+  type:     annotation

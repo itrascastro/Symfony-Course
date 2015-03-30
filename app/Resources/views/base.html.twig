@@ -11,21 +11,25 @@
 
     <title>{% block title %}{% endblock %} - Application</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    {% block stylesheets %}
+        <!-- Bootstrap core CSS -->
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/jumbotron/jumbotron.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="http://getbootstrap.com/examples/jumbotron/jumbotron.css" rel="stylesheet">
+    {% endblock %}
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="http://getbootstrap.com/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+    {% block javascripts %}
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="http://getbootstrap.com/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    {% endblock %}
 </head>
 
 <body>
@@ -42,15 +46,21 @@
             <a class="navbar-brand" href="{{ path('app_default_index') }}">Application</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div class="navbar-form navbar-right">
+                    <a class="btn btn-success" href="{{ path('tuser_security_logout') }}">Logout</a>
                 </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
+            {% elseif app.request.get('_route') != 'tuser_security_login' %}
+                <form class="navbar-form navbar-right" action="{{ path('tuser_security_loginCheck') }}" method="post">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Username" type="text" id="username" name="_username" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Password" type="password" id="password" name="_password" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Sign in</button>
+                </form>
+            {% endif %}
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
@@ -61,18 +71,18 @@
     <hr>
 
     <footer>
-        <p>&copy; Company 2014</p>
+        <p class="text-right">&copy; Symfony Course by <strong>Ismael Trascastro</strong></p>
     </footer>
 </div> <!-- /container -->
 
-{% block javascripts %}
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+{% block footer_javascripts %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
 {% endblock %}
 </body>
 </html>
