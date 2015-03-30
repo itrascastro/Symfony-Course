@@ -29,19 +29,29 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
         return [
             // last username entered by the user
-            'last_username' => $lastUsername,
-            'error'         => $error,
+            'last_username' => $this->get('security.authentication_utils')->getLastUsername(),
+            'error'         => $this->get('security.authentication_utils')->getLastAuthenticationError(),
         ];
+    }
+
+    /**
+     * loginHoritzontalAction
+     *
+     * No route needed because it is called from a view
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function loginHoritzontalAction()
+    {
+        return $this->render(
+            '@TUser/Security/horitzontal-login.html.twig',
+            [
+                'last_username' => $this->get('security.authentication_utils')->getLastUsername(),
+                'error'         => $this->get('security.authentication_utils')->getLastAuthenticationError(),
+            ]
+        );
     }
 
     /**
