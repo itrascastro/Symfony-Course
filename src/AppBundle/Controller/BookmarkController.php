@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Bookmark;
 use AppBundle\Form\BookmarkType;
 
@@ -17,16 +18,18 @@ use AppBundle\Form\BookmarkType;
  */
 class BookmarkController extends Controller
 {
-
     /**
      * Lists all Bookmark entities.
      *
      * @Route("/", name="bookmark")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction()
     {
+        // $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Bookmark')->findAll();
@@ -41,6 +44,7 @@ class BookmarkController extends Controller
      * @Route("/", name="bookmark_create")
      * @Method("POST")
      * @Template("AppBundle:Bookmark:new.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function createAction(Request $request)
     {
@@ -68,6 +72,8 @@ class BookmarkController extends Controller
      * @param Bookmark $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     private function createCreateForm(Bookmark $entity)
     {
@@ -87,6 +93,8 @@ class BookmarkController extends Controller
      * @Route("/new", name="bookmark_new")
      * @Method("GET")
      * @Template()
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction()
     {
@@ -105,6 +113,8 @@ class BookmarkController extends Controller
      * @Route("/{id}", name="bookmark_show")
      * @Method("GET")
      * @Template()
+     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
     {
@@ -130,6 +140,7 @@ class BookmarkController extends Controller
      * @Route("/{id}/edit", name="bookmark_edit")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction($id)
     {
@@ -155,7 +166,7 @@ class BookmarkController extends Controller
     * Creates a form to edit a Bookmark entity.
     *
     * @param Bookmark $entity The entity
-    *
+    * @Security("has_role('ROLE_ADMIN')")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(Bookmark $entity)
@@ -175,6 +186,7 @@ class BookmarkController extends Controller
      * @Route("/{id}", name="bookmark_update")
      * @Method("PUT")
      * @Template("AppBundle:Bookmark:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -207,6 +219,7 @@ class BookmarkController extends Controller
      *
      * @Route("/{id}", name="bookmark_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -232,7 +245,7 @@ class BookmarkController extends Controller
      * Creates a form to delete a Bookmark entity by id.
      *
      * @param mixed $id The entity id
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)
