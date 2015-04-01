@@ -16,12 +16,12 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  */
 class UserRepository extends EntityRepository implements UserProviderInterface
 {
-    public function getUserByUsernameOrEmail($login)
+    public function getUserByUsernameOrEmail($account)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.username = :username OR u.email = :email')
-            ->setParameter('username', $login)
-            ->setParameter('email', $login)
+            ->setParameter('username', $account)
+            ->setParameter('email', $account)
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -40,12 +40,12 @@ class UserRepository extends EntityRepository implements UserProviderInterface
      *
      * @throws UsernameNotFoundException if the user is not found
      */
-    public function loadUserByUsername($login)
+    public function loadUserByUsername($account)
     {
-        $user = $this->getUserByUsernameOrEmail($login);
+        $user = $this->getUserByUsernameOrEmail($account);
 
         if (!$user) {
-            throw new UsernameNotFoundException(sprintf('No user with "%s" username was found', $login));
+            throw new UsernameNotFoundException(sprintf('No user with "%s" username was found', $account));
         }
 
         return $user;
