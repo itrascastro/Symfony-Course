@@ -14,6 +14,7 @@ namespace itrascastro\TUserBundle\Controller;
 
 
 use itrascastro\TUserBundle\Entity\User;
+use itrascastro\TUserBundle\Form\Type\SignUpType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -33,15 +34,7 @@ class RegisterController extends Controller
      */
     public function signUpAction()
     {
-        $formBuilder = $this->createFormBuilder();
-        $formBuilder
-            ->add('username', 'text')
-            ->add('email', 'email')
-            ->add('plainPassword', 'repeated', [
-                'type' => 'password',
-            ]);
-
-        $form = $formBuilder->getForm();
+        $form = $this->createForm('sign_up');
 
         return ['form' => $form->createView()];
     }
@@ -55,15 +48,7 @@ class RegisterController extends Controller
      */
     public function doSignUpAction(Request $request)
     {
-        $formBuilder = $this->createFormBuilder(null, ['data_class' => 'itrascastro\TUserBundle\Entity\User']);
-        $formBuilder
-            ->add('username', 'text')
-            ->add('email', 'email')
-            ->add('plainPassword', 'repeated', [
-                'type' => 'password',
-            ]);
-
-        $form = $formBuilder->getForm();
+        $form = $this->createForm('sign_up');
 
         $form->handleRequest($request);
 

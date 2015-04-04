@@ -1,0 +1,5 @@
+services:
+  itrascastro_tuserbundle.form.type.signuptype:
+      class: itrascastro\TUserBundle\Form\Type\SignUpType
+      tags:
+        - { name: form.type, alias: sign_up }
