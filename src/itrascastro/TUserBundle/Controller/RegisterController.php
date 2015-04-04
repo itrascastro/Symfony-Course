@@ -37,7 +37,7 @@ class RegisterController extends Controller
         $formBuilder
             ->add('username', 'text')
             ->add('email', 'email')
-            ->add('password', 'repeated', [
+            ->add('plainPassword', 'repeated', [
                 'type' => 'password',
             ]);
 
@@ -55,11 +55,11 @@ class RegisterController extends Controller
      */
     public function doSignUpAction(Request $request)
     {
-        $formBuilder = $this->createFormBuilder();
+        $formBuilder = $this->createFormBuilder(null, ['data_class' => 'itrascastro\TUserBundle\Entity\User']);
         $formBuilder
             ->add('username', 'text')
             ->add('email', 'email')
-            ->add('password', 'repeated', [
+            ->add('plainPassword', 'repeated', [
                 'type' => 'password',
             ]);
 
@@ -68,14 +68,12 @@ class RegisterController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $data = $form->getData();
-            $user = new User();
-            $user->setUsername($data['username']);
-            $user->setEmail($data['email']);
-            $user->setPassword($this->encodePassword($user, $data['password']));
+            $user = $form->getData();
+            $user->setPassword($this->encodePassword($user, $user->getPlainPassword()));
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($user);
             $em->flush();
+
             return $this->redirectToRoute('bookmark');
         } else {
             return $this->render('@TUser/Register/signUp.html.twig', ['form' => $form->createView()]);

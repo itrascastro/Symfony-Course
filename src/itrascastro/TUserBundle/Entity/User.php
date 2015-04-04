@@ -38,6 +38,13 @@ class User implements AdvancedUserInterface, \Serializable
     private $password;
 
     /**
+     * Will not be stored in the database. It's just for store data
+     *
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="roles", type="json_array")
@@ -115,6 +122,22 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
      * Returns the roles granted to the user.
      *
      * @return Role[] The user roles
@@ -155,7 +178,7 @@ class User implements AdvancedUserInterface, \Serializable
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        $this->setPlainPassword(null);
     }
 
     /**
