@@ -18,12 +18,13 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 {
     public function getUserByUsernameOrEmail($account)
     {
-        return $this->createQueryBuilder('u')
+        $qBuilder = $this->createQueryBuilder('u')
             ->andWhere('u.username = :username OR u.email = :email')
             ->setParameter('username', $account)
-            ->setParameter('email', $account)
-            ->getQuery()
-            ->getOneOrNullResult();
+            ->setParameter('email', $account);
+        $query = $qBuilder->getQuery();
+
+        return $query->getOneOrNullResult();
     }
 
     /**
