@@ -22,10 +22,15 @@ class SignUpType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text')
-            ->add('email', 'email')
+            ->add('username', 'text', [
+                'error_bubbling' => true,
+            ])
+            ->add('email', 'email', [
+                'error_bubbling' => true,
+            ])
             ->add('plainPassword', 'repeated', [
                 'type' => 'password',
+                'error_bubbling' => true,
             ]);
     }
 
