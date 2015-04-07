@@ -5,12 +5,16 @@ namespace itrascastro\TUserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="itrascastro\TUserBundle\Entity\UserRepository")
+ * @UniqueEntity("username", message="Username already taken")
+ * @UniqueEntity(fields="email", message="Email already taken")
  */
 class User implements AdvancedUserInterface, \Serializable
 {
@@ -27,13 +31,26 @@ class User implements AdvancedUserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255)
+     *
+     * @Assert\NotBlank(message="Username is empty")
      */
     private $username;
 
     /**
      * @var string
      *
+     * @ORM\Column(name="email", type="string", length=255)
+     *
+     * @Assert\NotBlank(message="Email is empty")
+     * @Assert\Email(message="Email must be valid")
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="password", type="string", length=255)
+     *
      */
     private $password;
 
@@ -41,6 +58,8 @@ class User implements AdvancedUserInterface, \Serializable
      * Will not be stored in the database. It's just for store data
      *
      * @var string
+     *
+     * @Assert\NotBlank(message="Password is empty")
      */
     private $plainPassword;
 
@@ -57,13 +76,6 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive = true;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     */
-    private $email;
 
     /**
      * Get id

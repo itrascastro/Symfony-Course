@@ -53,7 +53,7 @@
                 <div class="navbar-form navbar-right">
                     <a class="btn btn-success" href="{{ path('tuser_security_logout') }}">Sign out</a>
                 </div>
-            {% elseif app.request.get('_route') != 'tuser_security_login' and app.request.get('_route') != 'tuser_register_signup' %}
+            {% elseif app.request.get('_route') != 'tuser_security_login' and app.request.get('_route') != 'tuser_register_signup' and app.request.get('_route') != 'tuser_register_dosignup' %}
                 {% render(controller('TUserBundle:Security:loginHoritzontal')) %}
             {% endif %}
         </div><!--/.navbar-collapse -->
@@ -61,6 +61,15 @@
 </nav>
 
 <div class="container">
+
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% block body %}{% endblock %}
 
     <hr>

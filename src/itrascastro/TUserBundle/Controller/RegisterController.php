@@ -58,6 +58,10 @@ class RegisterController extends Controller
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($user);
             $em->flush();
+            $request->getSession()->getFlashBag()->add(
+                'success',
+                'Wellcome ' . $user->getUsername()
+            );
 
             return $this->redirectToRoute('bookmark');
         } else {
