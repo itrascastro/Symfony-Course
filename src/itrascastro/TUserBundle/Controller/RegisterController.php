@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class RegisterController extends Controller
 {
@@ -62,6 +63,8 @@ class RegisterController extends Controller
                 'success',
                 'Wellcome ' . $user->getUsername()
             );
+            
+            $this->authenticateUser($user);
 
             return $this->redirectToRoute('bookmark');
         } else {
@@ -74,5 +77,20 @@ class RegisterController extends Controller
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
 
         return $encoder->encodePassword($plainPassword, $user->getSalt());
+    }
+
+    /**
+     * authenticateUser
+     *
+     * To authenticate manually. It will be triggered after registration
+     *
+     * @param User $user
+     */
+    private function authenticateUser(User $user)
+    {
+        $providerKey = 'secured_area'; // your firewall name
+        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+
+        $this->container->get('security.context')->setToken($token);
     }
 }
