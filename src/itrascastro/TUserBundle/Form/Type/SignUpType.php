@@ -30,6 +30,7 @@ class SignUpType extends AbstractType
             ])
             ->add('plainPassword', 'repeated', [
                 'type' => 'password',
+                'invalid_message' => 'The password fields must match.',
                 'error_bubbling' => true,
             ]);
     }

@@ -7,7 +7,7 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_ADMIN:       [ROLE_USER]
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
@@ -28,6 +28,8 @@ security:
                 path:   /logout/
                 target: /login/
             anonymous: ~
+            remember_me:
+                key:    "xfOUgRt41"
             #http_basic:
             #    realm: "Secured Demo Area"
 
@@ -35,7 +37,10 @@ security:
     # of your application based on roles, ip, host or methods
     # http://symfony.com/doc/current/cookbook/security/access_control.html
     access_control:
-        - { path: ^/login/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/bookmark/new, roles: ROLE_ADMIN }
-        - { path: ^/bookmark/.*/edit, roles: ROLE_ADMIN }
-        - { path: ^/bookmark/, roles: ROLE_USER }
+        - { path: ^/login/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login_check/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/sign-up/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/do-signup/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(css|js), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(_wdt|_profiler), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/bookmark, roles: ROLE_USER }

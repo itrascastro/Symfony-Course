@@ -26,9 +26,9 @@
                         <input class="form-control" placeholder="Username" type="text" id="username" name="_username" value="{{ last_username }}" />
                         <input class="form-control" placeholder="Password" type="password" id="password" name="_password" />
 
-                        <input type="hidden" name="{{ path('bookmark') }}" value="/account" />
+                        <div>Remember me <input type="checkbox" name="_remember_me" /></div>
 
-                        <button class="btn btn-lg btn-primary btn-block spaceless" type="submit">Sign in</button>
+                        <button class="btn btn-lg btn-primary btn-block separator" type="submit">Sign in</button>
                         <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                     </form>
                 </div>

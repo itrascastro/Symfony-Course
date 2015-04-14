@@ -63,7 +63,7 @@ class RegisterController extends Controller
                 'success',
                 'Wellcome ' . $user->getUsername()
             );
-            
+
             $this->authenticateUser($user);
 
             return $this->redirectToRoute('bookmark');

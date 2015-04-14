@@ -52,6 +52,7 @@
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class="navbar-form navbar-right">
                     <a class="btn btn-success" href="{{ path('tuser_security_logout') }}">Sign out</a>
+                    <a class="btn btn-danger" href="#">{{ app.user.username }}</a>
                 </div>
             {% elseif app.request.get('_route') != 'tuser_security_login' and app.request.get('_route') != 'tuser_register_signup' and app.request.get('_route') != 'tuser_register_dosignup' %}
                 {% render(controller('TUserBundle:Security:loginHoritzontal')) %}
